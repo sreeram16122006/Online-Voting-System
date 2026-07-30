@@ -1,0 +1,106 @@
+.about{
+    padding:100px 8%;
+    background:#ffffff;
+}
+
+.about-container{
+    max-width:1300px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.about-tag{
+    display:inline-block;
+    background:#eef2ff;
+    color:#4f46e5;
+    padding:8px 18px;
+    border-radius:30px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.about-left h2{
+    font-size:48px;
+    color:#111827;
+    margin-bottom:25px;
+    line-height:1.2;
+}
+
+.about-left h2 span{
+    color:#4f46e5;
+}
+
+.about-left p{
+    color:#6b7280;
+    font-size:18px;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.about-points{
+    display:grid;
+    gap:15px;
+}
+
+.point{
+    background:#f8fafc;
+    padding:18px;
+    border-radius:12px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.point:hover{
+    transform:translateX(10px);
+    background:#eef2ff;
+}
+
+.about-right{
+    display:grid;
+    gap:25px;
+}
+
+.about-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    transition:.3s;
+    border:1px solid #e5e7eb;
+}
+
+.about-card:hover{
+    transform:translateY(-8px);
+}
+
+.about-icon{
+    font-size:45px;
+    color:#4f46e5;
+    margin-bottom:20px;
+}
+
+.about-card h3{
+    font-size:24px;
+    margin-bottom:12px;
+    color:#111827;
+}
+
+.about-card p{
+    color:#6b7280;
+    line-height:1.7;
+}
+
+@media(max-width:900px){
+
+.about-container{
+    grid-template-columns:1fr;
+}
+
+.about-left h2{
+    font-size:36px;
+}
+
+}
