@@ -19,7 +19,7 @@ function App() {
   return (
     <Routes>
 
-      {/* Public Routes */}
+      {/* ================= Public Routes ================= */}
 
       <Route path="/" element={<Home />} />
 
@@ -29,7 +29,10 @@ function App() {
 
       <Route path="/admin" element={<AdminLogin />} />
 
-      {/* Student Protected Routes */}
+      {/* Result Page - Public */}
+      <Route path="/result" element={<Result />} />
+
+      {/* ================= Student Protected ================= */}
 
       <Route
         path="/dashboard"
@@ -49,16 +52,7 @@ function App() {
         }
       />
 
-      <Route
-        path="/result"
-        element={
-          <ProtectedRoute>
-            <Result />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Admin Protected Routes */}
+      {/* ================= Admin Protected ================= */}
 
       <Route
         path="/admin/dashboard"
