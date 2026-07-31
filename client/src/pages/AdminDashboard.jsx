@@ -42,7 +42,41 @@ function AdminDashboard() {
       });
 
     } catch (err) {
+
       console.log(err);
+
+    }
+
+  };
+
+  // ===========================
+  // Reset Election
+  // ===========================
+
+  const resetElection = async () => {
+
+    const confirmReset = window.confirm(
+      "Are you sure you want to reset and start a new election?"
+    );
+
+    if (!confirmReset) return;
+
+    try {
+
+      await API.put("/election/reset");
+
+      await API.put("/election/start");
+
+      alert("New Election Started Successfully");
+
+      loadDashboard();
+
+    } catch (err) {
+
+      console.log(err);
+
+      alert("Reset Failed");
+
     }
 
   };
@@ -105,10 +139,14 @@ function AdminDashboard() {
 
           <h3>Election Status</h3>
 
-          <h2 className={stats.status === "Active" ? "active" : "stop"}>
-
+          <h2
+            className={
+              stats.status === "Active"
+                ? "active"
+                : "stop"
+            }
+          >
             {stats.status}
-
           </h2>
 
         </div>
@@ -117,15 +155,31 @@ function AdminDashboard() {
 
       <div className="actions">
 
-        <button onClick={() => navigate("/admin/candidates")}>
+        <button
+          onClick={() => navigate("/admin/candidates")}
+        >
           Candidate Management
         </button>
 
-        <button onClick={() => navigate("/admin/election")}>
+        <button
+          onClick={() => navigate("/admin/election")}
+        >
           Election Control
         </button>
 
-        <button onClick={() => navigate("/result")}>
+        <button
+          onClick={resetElection}
+          style={{
+            background: "#ef4444",
+            color: "#fff",
+          }}
+        >
+          🔄 Reset Election
+        </button>
+
+        <button
+          onClick={() => navigate("/result")}
+        >
           View Results
         </button>
 

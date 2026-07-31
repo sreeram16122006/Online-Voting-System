@@ -6,6 +6,8 @@ import "../styles/Register.css";
 function Register() {
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     mobile: "",
@@ -15,8 +17,6 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
-
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({
@@ -36,7 +36,7 @@ function Register() {
     try {
       setLoading(true);
 
-      await API.post("/users/register", {
+      const res = await API.post("/users/register", {
         name: form.name,
         mobile: form.mobile,
         registerNumber: form.registerNumber,
@@ -45,12 +45,27 @@ function Register() {
         password: form.password,
       });
 
+      console.log("SUCCESS :", res.data);
+
       alert("Registration Successful");
 
       navigate("/login");
 
     } catch (err) {
-      alert(err.response?.data?.message || "Registration Failed");
+
+      console.log("========== REGISTER ERROR ==========");
+      console.log(err);
+      console.log(err.response);
+      console.log(err.response?.status);
+      console.log(err.response?.data);
+      console.log("===================================");
+
+      if (err.response) {
+        alert(err.response.data.message);
+      } else {
+        alert("Cannot connect to server");
+      }
+
     } finally {
       setLoading(false);
     }
@@ -88,7 +103,6 @@ function Register() {
           />
 
           <input
-            className="full-width"
             type="text"
             name="registerNumber"
             placeholder="Register Number"
@@ -143,22 +157,16 @@ function Register() {
             required
           />
 
-          <button type="submit">
-            {loading ? "Creating Account..." : "Register Now"}
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Register Now"}
           </button>
 
         </form>
 
-        <div className="register-links">
-
-          <p>
-            Already have an account?{" "}
-            <Link to="/login">
-              Login
-            </Link>
-          </p>
-
-        </div>
+        <p style={{ marginTop: "20px" }}>
+          Already have an account?{" "}
+          <Link to="/login">Login</Link>
+        </p>
 
       </div>
 

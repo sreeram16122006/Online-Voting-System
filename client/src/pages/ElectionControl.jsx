@@ -27,6 +27,10 @@ function ElectionControl() {
     }
   };
 
+  // ===========================
+  // Start Election
+  // ===========================
+
   const startElection = async () => {
 
     try {
@@ -35,7 +39,7 @@ function ElectionControl() {
 
       await API.put("/election/start");
 
-      setStatus("Active");
+      await getStatus();
 
       alert("Election Started Successfully");
 
@@ -43,7 +47,7 @@ function ElectionControl() {
 
       console.log(err);
 
-      alert("Unable to Start Election");
+      alert(err.response?.data?.message || "Unable to Start Election");
 
     } finally {
 
@@ -53,6 +57,10 @@ function ElectionControl() {
 
   };
 
+  // ===========================
+  // End Election
+  // ===========================
+
   const endElection = async () => {
 
     try {
@@ -61,7 +69,7 @@ function ElectionControl() {
 
       await API.put("/election/stop");
 
-      setStatus("Stopped");
+      await getStatus();
 
       alert("Election Ended Successfully");
 

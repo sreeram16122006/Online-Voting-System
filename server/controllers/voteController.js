@@ -1,6 +1,7 @@
 import Vote from "../models/Vote.js";
 import User from "../models/User.js";
 import Candidate from "../models/Candidate.js";
+import Election from "../models/Election.js";
 
 // ======================================
 // Cast Vote
@@ -10,6 +11,16 @@ export const castVote = async (req, res) => {
   try {
 
     const { userId, candidateId } = req.body;
+
+    // Check Election Status
+    const election = await Election.findOne();
+
+    if (!election || election.status !== "Active") {
+      return res.status(400).json({
+        success: false,
+        message: "Election is not active",
+      });
+    }
 
     if (!userId || !candidateId) {
       return res.status(400).json({
@@ -44,14 +55,13 @@ export const castVote = async (req, res) => {
     }
 
     await Vote.create({
-  student: user._id,
-  studentName: user.name,
-  registerNumber: user.registerNumber,
-  department: user.department,
-
-  candidate: candidate._id,
-  candidateName: candidate.name,
-});
+      student: user._id,
+      studentName: user.name,
+      registerNumber: user.registerNumber,
+      department: user.department,
+      candidate: candidate._id,
+      candidateName: candidate.name,
+    });
 
     user.hasVoted = true;
     await user.save();

@@ -51,9 +51,26 @@ export const startElection = async (req, res) => {
       await election.save();
     }
 
+    // Reset all old election data
+    await Vote.deleteMany({});
+
+    await User.updateMany(
+      {},
+      {
+        hasVoted: false,
+      }
+    );
+
+    await Candidate.updateMany(
+      {},
+      {
+        votes: 0,
+      }
+    );
+
     res.status(200).json({
       success: true,
-      message: "Election Started",
+      message: "Election Started Successfully",
     });
 
   } catch (error) {
@@ -73,15 +90,20 @@ export const startElection = async (req, res) => {
 export const stopElection = async (req, res) => {
   try {
 
-    const election = await Election.findOne();
+    let election = await Election.findOne();
 
-    election.status = "Stopped";
-
-    await election.save();
+    if (!election) {
+      election = await Election.create({
+        status: "Stopped",
+      });
+    } else {
+      election.status = "Stopped";
+      await election.save();
+    }
 
     res.status(200).json({
       success: true,
-      message: "Election Stopped",
+      message: "Election Stopped Successfully",
     });
 
   } catch (error) {
@@ -101,7 +123,7 @@ export const stopElection = async (req, res) => {
 export const resetElection = async (req, res) => {
   try {
 
-    await Vote.deleteMany();
+    await Vote.deleteMany({});
 
     await User.updateMany(
       {},
@@ -117,11 +139,16 @@ export const resetElection = async (req, res) => {
       }
     );
 
-    const election = await Election.findOne();
+    let election = await Election.findOne();
 
-    election.status = "Stopped";
-
-    await election.save();
+    if (!election) {
+      election = await Election.create({
+        status: "Stopped",
+      });
+    } else {
+      election.status = "Stopped";
+      await election.save();
+    }
 
     res.status(200).json({
       success: true,

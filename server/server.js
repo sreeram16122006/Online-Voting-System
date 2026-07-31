@@ -13,53 +13,84 @@ import pdfRoutes from "./routes/pdfRoutes.js";
 
 dotenv.config();
 
+// ================================
+// Debug
+// ================================
+
+console.log("PORT:", process.env.PORT);
+console.log("ADMIN_EMAIL:", process.env.ADMIN_EMAIL);
+console.log("Mongo URI Exists:", !!process.env.MONGO_URI);
+
+// ================================
 // Connect Database
-connectDB();
+// ================================
+
+await connectDB();
 
 const app = express();
+
+// ================================
+// CORS
+// ================================
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://online-voting-system-gamma-six.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("CORS Not Allowed"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+app.options("*", cors());
 
 // ================================
 // Middleware
 // ================================
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
-
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 // ================================
-// Routes
+// Home
 // ================================
 
 app.get("/", (req, res) => {
   res.send("Voting API Running...");
 });
 
-// User Routes
+// ================================
+// API Routes
+// ================================
+
 app.use("/api/users", userRoutes);
 
-// Admin Routes
 app.use("/api/admin", adminRoutes);
 
-// Candidate Routes
 app.use("/api/candidates", candidateRoutes);
 
-// Vote Routes
 app.use("/api/votes", voteRoutes);
 
-// Election Routes
 app.use("/api/election", electionRoutes);
 
-// PDF Routes
 app.use("/api/pdf", pdfRoutes);
 
 // ================================
-// 404 Route
+// 404
 // ================================
 
 app.use((req, res) => {
@@ -89,5 +120,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server Running on Port ${PORT}`);
 });
