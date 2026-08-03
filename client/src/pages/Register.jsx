@@ -118,12 +118,12 @@ function Register() {
             required
           >
             <option value="">Select Department</option>
-            <option value="CSE">Computer Science</option>
+            <option value="CS">Computer Science</option>
             <option value="IT">Information Technology</option>
-            <option value="ECE">Electronics & Communication</option>
-            <option value="EEE">Electrical & Electronics</option>
-            <option value="MECH">Mechanical</option>
-            <option value="CIVIL">Civil</option>
+            <option value="BCA">Bachelor of Computer Applications</option>
+            <option value="AI">Artificial Intelligence</option>
+            <option value="DSA">Data Structures and Analysis</option>
+            
           </select>
 
           <select
