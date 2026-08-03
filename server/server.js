@@ -10,6 +10,7 @@ import candidateRoutes from "./routes/candidateRoutes.js";
 import voteRoutes from "./routes/voteRoutes.js";
 import electionRoutes from "./routes/electionRoutes.js";
 import pdfRoutes from "./routes/pdfRoutes.js";
+import excelRoutes from "./routes/excelRoutes.js";
 
 dotenv.config();
 
@@ -88,6 +89,8 @@ app.use("/api/votes", voteRoutes);
 app.use("/api/election", electionRoutes);
 
 app.use("/api/pdf", pdfRoutes);
+
+app.use("/api/excel", excelRoutes);
 
 // ================================
 // 404

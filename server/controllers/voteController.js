@@ -12,7 +12,6 @@ export const castVote = async (req, res) => {
 
     const { userId, candidateId } = req.body;
 
-    // Check Election Status
     const election = await Election.findOne();
 
     if (!election || election.status !== "Active") {
@@ -64,6 +63,7 @@ export const castVote = async (req, res) => {
     });
 
     user.hasVoted = true;
+    user.votedAt = new Date();
     await user.save();
 
     candidate.votes += 1;
@@ -99,6 +99,32 @@ export const getResult = async (req, res) => {
       success: true,
       winner: candidates[0],
       results: candidates,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
+
+// ======================================
+// Get All Voted Students
+// ======================================
+
+export const getAllVotes = async (req, res) => {
+  try {
+
+    const votes = await Vote.find().sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: votes,
     });
 
   } catch (error) {

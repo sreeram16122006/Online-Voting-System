@@ -12,6 +12,8 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import CandidateManagement from "./pages/CandidateManagement";
 import ElectionControl from "./pages/ElectionControl";
+import RegisteredStudents from "./pages/RegisteredStudents";
+import VotedStudents from "./pages/VotedStudents";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
@@ -20,7 +22,7 @@ function App() {
   return (
     <Routes>
 
-      {/* Public Routes */}
+      {/* ================= Public Routes ================= */}
 
       <Route path="/" element={<Home />} />
 
@@ -34,7 +36,7 @@ function App() {
 
       <Route path="/thankyou" element={<ThankYou />} />
 
-      {/* Student Protected Routes */}
+      {/* ================= Student Protected ================= */}
 
       <Route
         path="/dashboard"
@@ -54,7 +56,7 @@ function App() {
         }
       />
 
-      {/* Admin Protected Routes */}
+      {/* ================= Admin Protected ================= */}
 
       <Route
         path="/admin/dashboard"
@@ -79,6 +81,24 @@ function App() {
         element={
           <AdminProtectedRoute>
             <ElectionControl />
+          </AdminProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/students"
+        element={
+          <AdminProtectedRoute>
+            <RegisteredStudents />
+          </AdminProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/voters"
+        element={
+          <AdminProtectedRoute>
+            <VotedStudents />
           </AdminProtectedRoute>
         }
       />

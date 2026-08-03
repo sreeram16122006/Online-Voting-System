@@ -64,7 +64,6 @@ function AdminDashboard() {
     try {
 
       await API.put("/election/reset");
-
       await API.put("/election/start");
 
       alert("New Election Started Successfully");
@@ -84,6 +83,7 @@ function AdminDashboard() {
   const logout = () => {
 
     localStorage.removeItem("admin");
+    localStorage.removeItem("adminToken");
 
     navigate("/admin");
 
@@ -112,33 +112,22 @@ function AdminDashboard() {
       <div className="cards">
 
         <div className="card">
-
           <h3>Total Students</h3>
-
           <h2>{stats.students}</h2>
-
         </div>
 
         <div className="card">
-
           <h3>Total Candidates</h3>
-
           <h2>{stats.candidates}</h2>
-
         </div>
 
         <div className="card">
-
           <h3>Total Votes</h3>
-
           <h2>{stats.votes}</h2>
-
         </div>
 
         <div className="card">
-
           <h3>Election Status</h3>
-
           <h2
             className={
               stats.status === "Active"
@@ -148,7 +137,6 @@ function AdminDashboard() {
           >
             {stats.status}
           </h2>
-
         </div>
 
       </div>
@@ -168,6 +156,18 @@ function AdminDashboard() {
         </button>
 
         <button
+          onClick={() => navigate("/admin/students")}
+        >
+          👨‍🎓 Registered Students
+        </button>
+
+        <button
+          onClick={() => navigate("/admin/voters")}
+        >
+          🗳️ Voted Students
+        </button>
+
+        <button
           onClick={resetElection}
           style={{
             background: "#ef4444",
@@ -180,7 +180,7 @@ function AdminDashboard() {
         <button
           onClick={() => navigate("/result")}
         >
-          View Results
+          🏆 View Results
         </button>
 
       </div>
