@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../styles/Hero.css";
-import homeElection from "../assets/images/home-election.png";
 
 function Hero() {
   return (
@@ -62,14 +61,22 @@ function Hero() {
           </div>
 
         </div>
-                <div className="hero-right">
+
+        <div className="hero-right">
 
           <div className="hero-image">
 
-            <img
-              src={homeElection}
-              alt="Student Election"
-            />
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="hero-video"
+            >
+              <source src="/videos/hero-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
 
           </div>
 
