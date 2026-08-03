@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Vote from "./pages/Vote";
 import Result from "./pages/Result";
+import ThankYou from "./pages/ThankYou";
 
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -19,7 +20,7 @@ function App() {
   return (
     <Routes>
 
-      {/* ================= Public Routes ================= */}
+      {/* Public Routes */}
 
       <Route path="/" element={<Home />} />
 
@@ -29,10 +30,11 @@ function App() {
 
       <Route path="/admin" element={<AdminLogin />} />
 
-      {/* Result Page - Public */}
       <Route path="/result" element={<Result />} />
 
-      {/* ================= Student Protected ================= */}
+      <Route path="/thankyou" element={<ThankYou />} />
+
+      {/* Student Protected Routes */}
 
       <Route
         path="/dashboard"
@@ -52,7 +54,7 @@ function App() {
         }
       />
 
-      {/* ================= Admin Protected ================= */}
+      {/* Admin Protected Routes */}
 
       <Route
         path="/admin/dashboard"

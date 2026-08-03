@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import "../styles/Vote.css";
 
 function Vote() {
+
+  const navigate = useNavigate();
 
   const [candidates, setCandidates] = useState([]);
   const [student, setStudent] = useState(null);
@@ -14,11 +17,12 @@ function Vote() {
 
   const loadData = async () => {
     try {
+
       const localStudent = JSON.parse(localStorage.getItem("student"));
 
       if (!localStudent) {
         alert("Please Login Again");
-        window.location.href = "/login";
+        navigate("/login");
         return;
       }
 
@@ -34,18 +38,26 @@ function Vote() {
       );
 
       if (updatedStudent) {
+
         localStorage.setItem(
           "student",
           JSON.stringify(updatedStudent)
         );
+
         setStudent(updatedStudent);
+
       }
 
     } catch (err) {
+
       console.log(err);
+
       alert("Failed to Load Data");
+
     } finally {
+
       setLoading(false);
+
     }
   };
 
@@ -65,8 +77,6 @@ function Vote() {
         candidateId,
       });
 
-      alert(res.data.message);
-
       const updatedStudent = {
         ...student,
         hasVoted: true,
@@ -79,17 +89,25 @@ function Vote() {
         JSON.stringify(updatedStudent)
       );
 
-      window.location.href = "/result";
+      alert(res.data.message || "Vote Submitted Successfully");
+
+      // ✅ Thank You Page
+      navigate("/thankyou");
 
     } catch (err) {
 
-      alert(err.response?.data?.message || "Voting Failed");
+      console.log(err);
+
+      alert(
+        err.response?.data?.message || "Voting Failed"
+      );
 
     }
 
   };
 
   return (
+
     <div className="vote-page">
 
       <h1>🗳 Cast Your Vote</h1>
@@ -97,8 +115,11 @@ function Vote() {
       <p>Select your preferred candidate carefully.</p>
 
       {loading || !student ? (
+
         <h2>Loading...</h2>
+
       ) : (
+
         <div className="candidate-grid">
 
           {candidates.map((candidate) => (
@@ -123,7 +144,9 @@ function Vote() {
               <p>{candidate.department}</p>
 
               {candidate.symbol && (
+
                 <div className="symbol-box">
+
                   <h4>Election Symbol</h4>
 
                   <img
@@ -131,14 +154,20 @@ function Vote() {
                     src={candidate.symbol}
                     alt="Symbol"
                   />
+
                 </div>
+
               )}
 
               <button
                 disabled={student.hasVoted}
                 onClick={() => vote(candidate._id)}
               >
-                {student.hasVoted ? "Already Voted" : "Vote Now"}
+
+                {student.hasVoted
+                  ? "Already Voted"
+                  : "Vote Now"}
+
               </button>
 
             </div>
@@ -146,9 +175,11 @@ function Vote() {
           ))}
 
         </div>
+
       )}
 
     </div>
+
   );
 }
 
