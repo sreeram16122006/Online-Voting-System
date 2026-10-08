@@ -39,6 +39,7 @@
 
       <span>
         Voting percentage: <strong>{stats.turnoutPercentage}%</strong>
+        export default AdminDashboard;
       </span>
     </div>
   </div>
