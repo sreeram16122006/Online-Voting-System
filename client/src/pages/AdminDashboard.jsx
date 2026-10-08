@@ -20,7 +20,8 @@
       <span className="ticker-divider">◆</span>
 
       <span>
-        Voting percentage: <strong>{stats.turnoutPercentage}%</strong>
+        Voting percentage:{" "}
+        <strong>{stats.turnoutPercentage}%</strong>
       </span>
 
       <span className="ticker-divider">◆</span>
@@ -38,9 +39,11 @@
       <span className="ticker-divider">◆</span>
 
       <span>
-        Voting percentage: <strong>{stats.turnoutPercentage}%</strong>
-        export default AdminDashboard;
+        Voting percentage:{" "}
+        <strong>{stats.turnoutPercentage}%</strong>
       </span>
+
+      <span className="ticker-divider">◆</span>
     </div>
   </div>
 </div>
